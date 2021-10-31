@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
 import { CsvModule } from './modules/csv/csv.module';
@@ -6,7 +6,6 @@ import { KmlModule } from './modules/kml/kml.module';
 import { XlsxModule } from './modules/xlsx/xlsx.module';
 
 import { AppController } from './app.controller';
-import { AuthMiddleware } from './src/middlewares/auth.middleware';
 
 import { join } from 'path';
 
@@ -21,10 +20,4 @@ import { join } from 'path';
   ],
   controllers: [AppController],
 })
-export class AppModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes(XlsxModule);
-    consumer.apply(AuthMiddleware).forRoutes(CsvModule);
-    consumer.apply(AuthMiddleware).forRoutes(KmlModule);
-  }
-}
+export class AppModule {}

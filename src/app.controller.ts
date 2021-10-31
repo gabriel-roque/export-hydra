@@ -3,7 +3,7 @@ import { Controller, Get } from '@nestjs/common';
 
 @Controller()
 export class AppController {
-  @Get()
+  @Get('status')
   getStatus(): any {
     return {
       app: require('../package').name,
