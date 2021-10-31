@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  getStatus(): any {
+    return {
+      app: require('../package').name,
+      version: require('../package').version,
+      status: true,
+    };
   }
 }
