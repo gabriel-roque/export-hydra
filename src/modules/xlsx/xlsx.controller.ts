@@ -1,9 +1,11 @@
 import { Body, Controller, Post } from '@nestjs/common';
 
-import { XlsxDataInput } from './dto/data.input';
+import { XlsxDataInput } from 'src/dto/xlsx.input';
 
 @Controller('xlsx')
 export class XlsxController {
   @Post()
-  async export(@Body() data: XlsxDataInput) {}
+  async export(@Body() data: XlsxDataInput) {
+    // TODO
+  }
 }
