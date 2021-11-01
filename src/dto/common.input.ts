@@ -14,16 +14,8 @@ export class Row {
 export class Author {
   name: string;
   email: string;
-  companyName?: string;
 }
 
-export class CommonData {
-  @IsNotEmpty()
-  author: Author;
-
-  @IsNotEmpty()
-  columns: Column[];
-
-  @IsNotEmpty()
-  rows: Row[];
+export class Company {
+  name: string;
 }
