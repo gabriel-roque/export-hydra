@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
 import { CsvModule } from './modules/csv/csv.module';
+import { FileModule } from './modules/file/file.module';
 import { KmlModule } from './modules/kml/kml.module';
 import { XlsxModule } from './modules/xlsx/xlsx.module';
 
@@ -17,6 +18,7 @@ import { join } from 'path';
     XlsxModule,
     CsvModule,
     KmlModule,
+    FileModule,
   ],
   controllers: [AppController],
 })

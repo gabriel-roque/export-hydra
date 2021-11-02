@@ -1,15 +1,24 @@
+import { formatLinkDownload } from 'src/utils/urls.util';
+
 import { Body, Controller, Post } from '@nestjs/common';
 
+import { FileService } from '../file/services/file.service';
 import { XlsxService } from './services/xlsx.service';
 
 import { XlsxDataInput } from 'src/dto/xlsx.input';
 
 @Controller('xlsx')
 export class XlsxController {
-  constructor(private readonly xlsxService: XlsxService) {}
+  constructor(
+    private readonly xlsxService: XlsxService,
+    private readonly fileService: FileService,
+  ) {}
 
   @Post()
   async export(@Body() data: XlsxDataInput) {
-    return await this.xlsxService.export(data);
+    const fileName = await this.xlsxService.export(data);
+    this.fileService.openFile(fileName);
+
+    return { link: formatLinkDownload(fileName) };
   }
 }

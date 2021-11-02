@@ -2,11 +2,13 @@ import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 
 import { XlsxService } from './services/xlsx.service';
 
+import { FileModule } from '../file/file.module';
 import { XlsxController } from './xlsx.controller';
 
-import { AuthMiddleware } from 'src/src/middlewares/auth.middleware';
+import { AuthMiddleware } from 'src/middlewares/auth.middleware';
 
 @Module({
+  imports: [FileModule],
   providers: [XlsxService],
   exports: [XlsxService],
   controllers: [XlsxController],

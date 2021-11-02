@@ -1,16 +1,18 @@
 import { Injectable } from '@nestjs/common';
 
+import { FileService } from 'src/modules/file/services/file.service';
+
 import { XlsxDataInput } from 'src/dto/xlsx.input';
 
 import * as dayjs from 'dayjs';
 import * as ExcelJS from 'exceljs';
-import * as fs from 'fs';
-import * as open from 'open';
 import * as uuid from 'uuid';
 
 @Injectable()
 export class XlsxService {
   private workbook: ExcelJS.Workbook;
+
+  constructor(private readonly fileService: FileService) {}
 
   private async createWorkBook(data: XlsxDataInput): Promise<void> {
     const workbook = new ExcelJS.Workbook();
@@ -42,9 +44,7 @@ export class XlsxService {
       (await this.workbook.xlsx.writeBuffer()) as NodeJS.ArrayBufferView;
     const fileName = `${uuid.v4()}.xlsx`;
 
-    const writeStream = fs.createWriteStream(`output/${fileName}`);
-    writeStream.write(buffer);
-    writeStream.end();
-    open(`output/${fileName}`);
+    this.fileService.writeStream(fileName, buffer);
+    return fileName;
   }
 }
