@@ -1,6 +1,7 @@
-import { Author, Column, Company, Row } from './common.input';
+import { Author, Company, Tab } from './common.input';
 
-import { IsNotEmpty } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsNotEmpty, ValidateNested } from 'class-validator';
 
 export class XlsxDataInput {
   @IsNotEmpty()
@@ -9,8 +10,7 @@ export class XlsxDataInput {
   company: Company;
 
   @IsNotEmpty()
-  columns: Column[];
-
-  @IsNotEmpty()
-  rows: Row[];
+  @ValidateNested({ each: true })
+  @Type(() => Tab)
+  tabs: Tab[];
 }

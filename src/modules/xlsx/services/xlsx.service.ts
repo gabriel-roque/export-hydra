@@ -45,8 +45,63 @@ export class XlsxService {
     dateCell.value = dayjs().format('DD/MM/YYYY');
   }
 
-  async export(data: XlsxDataInput) {
+  async export(data: XlsxDataInput): Promise<string> {
     await this.createWorkBook(data);
+
+    data.tabs.forEach((tab) => {
+      const sheet = this.workbook.addWorksheet(tab.name, {
+        properties: { tabColor: { argb: tab?.color } },
+      });
+
+      sheet.columns = tab.columns.map((column) => {
+        return {
+          key: column.key,
+          header: column.value,
+          width: column.width || 20,
+        };
+      });
+
+      sheet.columns.forEach((col) => {
+        col.eachCell((cell) => {
+          const collumnCell = sheet.getCell(cell.address);
+
+          collumnCell.fill = {
+            type: 'pattern',
+            pattern: 'solid',
+            fgColor: { argb: 'FF00B365' },
+          };
+
+          collumnCell.font = {
+            bold: true,
+            name: 'Arial',
+            color: { argb: 'FFFFFFFF' },
+          };
+        });
+      });
+
+      tab.rows.forEach((row, i) => {
+        let objectRow = {};
+        Object.keys(row).map((prop) => {
+          objectRow = { [prop]: row[prop].value, ...objectRow };
+        });
+
+        const rowInserted = sheet.insertRow(i + 2, { ...objectRow });
+
+        Object.keys(row).forEach((prop) => {
+          rowInserted.model.cells.forEach((cell) => {
+            if (row[prop].value === cell.value) {
+              if (row[prop].color) {
+                sheet.getCell(String(cell.address)).fill = {
+                  pattern: 'solid',
+                  type: 'pattern',
+                  fgColor: { argb: row[prop].color },
+                };
+              }
+            }
+          });
+        });
+      });
+    });
 
     const buffer =
       (await this.workbook.xlsx.writeBuffer()) as NodeJS.ArrayBufferView;
