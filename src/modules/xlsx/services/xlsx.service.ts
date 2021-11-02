@@ -44,7 +44,7 @@ export class XlsxService {
       (await this.workbook.xlsx.writeBuffer()) as NodeJS.ArrayBufferView;
     const fileName = `${uuid.v4()}.xlsx`;
 
-    this.fileService.writeStream(fileName, buffer);
+    await this.fileService.writeStream(fileName, buffer);
     return fileName;
   }
 }
