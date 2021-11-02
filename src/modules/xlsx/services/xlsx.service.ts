@@ -28,21 +28,29 @@ export class XlsxService {
     this.workbook.lastModifiedBy = 'Jazida Exportação <jazida-export>';
     this.workbook.manager = 'Jazida Exportação <jazida-export>';
 
-    if (data.company) {
-      const companyCell = presensationSheet.getCell('G9');
+    if (data?.company) {
+      const companyCell = presensationSheet.getCell('E9');
       companyCell.value = data.company.name;
     } else {
-      const labelCompanyCell = presensationSheet.getCell('F9');
+      const labelCompanyCell = presensationSheet.getCell('D9');
       labelCompanyCell.value = '';
     }
 
-    const userCell = presensationSheet.getCell('G10');
+    if (data?.group) {
+      const groupCell = presensationSheet.getCell('E10');
+      groupCell.value = data.group.name;
+    } else {
+      const labelgroupCell = presensationSheet.getCell('D10');
+      labelgroupCell.value = '';
+    }
+
+    const userCell = presensationSheet.getCell('E11');
     userCell.value = data.author.name;
 
-    const emailCell = presensationSheet.getCell('G11');
+    const emailCell = presensationSheet.getCell('E12');
     emailCell.value = data.author.email;
 
-    const dateCell = presensationSheet.getCell('G12');
+    const dateCell = presensationSheet.getCell('E13');
     dateCell.value = dayjs().format('DD/MM/YYYY');
   }
 
