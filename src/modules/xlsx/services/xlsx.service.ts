@@ -19,6 +19,14 @@ export class XlsxService {
     this.workbook = await workbook.xlsx.readFile('static/template.xlsx');
     const presensationSheet = this.workbook.getWorksheet(1);
 
+    workbook.title = 'Jazida Export';
+    workbook.subject = data.author.email;
+    workbook.created = new Date();
+    workbook.creator = 'Jazida.com';
+    workbook.description = `Exportação gerada por ${data.author.name} - ${data.author.email}`;
+    workbook.lastModifiedBy = 'Jazida Exportação <jazida-export>';
+    workbook.manager = 'Jazida Exportação <jazida-export>';
+
     if (data.company) {
       const companyCell = presensationSheet.getCell('G9');
       companyCell.value = data.company.name;
