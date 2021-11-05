@@ -15,7 +15,7 @@ export class XlsxController {
   ) {}
 
   @Post()
-  async export(@Body() data: XlsxDataInput) {
+  async export(@Body() data: XlsxDataInput): Promise<{ link: string }> {
     const fileName = await this.xlsxService.export(data);
     this.fileService.openFile(fileName);
 
