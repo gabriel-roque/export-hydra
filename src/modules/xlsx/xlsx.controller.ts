@@ -5,7 +5,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { FileService } from '../file/services/file.service';
 import { XlsxService } from './services/xlsx.service';
 
-import { XlsxDataInput } from 'src/dto/xlsx.input';
+import { XlsxDataInput } from './dto/xlsx.input';
 
 @Controller('xlsx')
 export class XlsxController {

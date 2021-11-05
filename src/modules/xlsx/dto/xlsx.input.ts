@@ -1,4 +1,4 @@
-import { Author, Company, Tab } from './common.input';
+import { Author, Company, Tab } from 'src/dto/common.input';
 
 import { Type } from 'class-transformer';
 import { IsNotEmpty, ValidateNested } from 'class-validator';
