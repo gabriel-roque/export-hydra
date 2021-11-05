@@ -7,7 +7,7 @@ import * as open from 'open';
 export class FileService {
   async writeStream(
     pathFileName: string,
-    buffer: Buffer | NodeJS.ArrayBufferView,
+    buffer: Buffer | NodeJS.ArrayBufferView | string,
   ): Promise<boolean> {
     const writeStream = fs.createWriteStream(`output/${pathFileName}`);
     writeStream.write(buffer);

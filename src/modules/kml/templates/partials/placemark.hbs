@@ -1,0 +1,23 @@
+<Placemark>
+  <name>{{process.number}}</name>
+  <visibility>1</visibility>
+  <styleUrl>#{{process.folderId}}</styleUrl>
+
+  <description>
+    aqui vai vir o html
+  </description>
+
+  <MultiGeometry>
+    <Polygon>
+      <tessellate>0</tessellate>
+      <extrude>1</extrude>
+      <altitudeMode>clampToGround</altitudeMode>
+      <outerBoundaryIs>
+        <LinearRing>
+          <coordinates>{{process.coordinates}}</coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </MultiGeometry>
+
+</Placemark>
