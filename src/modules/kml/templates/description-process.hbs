@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <meta http-equiv='Content-Type' content='text/html' />
+    <style type='text/css'>
+      body { padding: 0px; margin: 0px; } table { border: none; margin-bottom:
+      20px; } tr { background-color: white; } td { border: none; } td.large {
+      width: 300px; } .column-name { font-weight: 600; text-align: right;
+      max-width: 120px; width: 120px; } .header { height: 10px;
+      background-color: #2BB673 } .logo { margin-top: 20px; }
+    </style>
+  </head>
+
+  <body>
+    <table border='0' cellpadding='5' cellspacing='0'>
+      <tr class='header'>
+        <td colspan='2'></td>
+      </tr>
+
+      <tr>
+        <td align='right'>
+          <a href='https://www.jazida.com'>
+            <img
+              class='logo'
+              src='https://jazidastorage.blob.core.windows.net/logo/logo-jazidacom-verde-horizontal-300x56.png'
+              title='Jazida.com'
+              alt='Jazida.com'
+              width='100'
+            />
+          </a>
+        </td>
+      </tr>
+
+      {{#each datas}}
+
+        <tr>
+          <td class='column-name'>{{this.name}}</td>
+          <td>
+            {{#if this.link}}
+              <a href={{this.link}}>
+                {{this.value}}
+              </a>
+            {{else}}
+              {{this.value}}
+            {{/if}}
+          </td>
+        </tr>
+
+      {{/each}}
+
+      <tr>
+        <td class='column-name'>Fonte</td>
+        <td><a href='https://www.jazida.com'>Jazida.com</a></td>
+      </tr>
+    </table>
+  </body>
+</html>

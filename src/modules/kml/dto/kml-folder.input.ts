@@ -37,6 +37,21 @@ export class Vertice {
   lng: string | number;
 }
 
+export class Description {
+  @ValidateNested({ each: true })
+  @Type(() => DataRowDescription)
+  datas: DataRowDescription[];
+}
+
+export class DataRowDescription {
+  @IsNotEmpty()
+  name: string;
+
+  @IsNotEmpty()
+  value: string;
+
+  link?: string;
+}
 export class Processs {
   @IsNotEmpty()
   folderId: string;
@@ -45,6 +60,12 @@ export class Processs {
   number: string;
 
   coordinates?: string;
+
+  @ValidateNested({ each: true })
+  @Type(() => Description)
+  description?: Description;
+
+  descriptionHTML?: string;
 
   @IsNotEmpty()
   @ValidateNested({ each: true })

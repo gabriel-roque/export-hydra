@@ -4,7 +4,7 @@ import { FileService } from 'src/modules/file/services/file.service';
 
 import { TypeTemplates } from '../enum/templates.enum';
 
-import { KmlFolderData, Vertice } from '../dto/kml-folder.input';
+import { Description, KmlFolderData, Vertice } from '../dto/kml-folder.input';
 
 import * as fs from 'fs';
 import Handlebars from 'handlebars';
@@ -22,6 +22,11 @@ export class KmlService {
         process.coordinates = this.generateCoorinatesByVertices(
           process.vertices,
         );
+        if (process.description) {
+          process.descriptionHTML = this.generateDescrptionKml(
+            process.description,
+          );
+        }
       });
     });
 
@@ -30,6 +35,13 @@ export class KmlService {
     const fileName = `${uuid.v4()}.kmz`;
     await this.fileService.writeStream(fileName, kml);
     return fileName;
+  }
+
+  private generateDescrptionKml(desc: Description): string {
+    const templateFile = this.loadTemplate('description-process');
+
+    const view = Handlebars.compile(templateFile, { noEscape: true });
+    return view({ ...desc });
   }
 
   private generateCoorinatesByVertices(vertices: Vertice[]): string {
